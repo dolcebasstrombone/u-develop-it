@@ -171,6 +171,7 @@ app.delete("/api/party/:id", (req, res) => {
 });
 
 // Update a candidate's party (a put request!!)
+// in party routes even though it's a candidate route for readability
 app.put("/api/candidate/:id", (req, res) => {
   const errors = inputCheck(req.body, "party_id");
   if (errors) {
@@ -181,7 +182,7 @@ app.put("/api/candidate/:id", (req, res) => {
   const sql = `UPDATE candidates SET party_id = ? 
                WHERE id = ?`;
   const params = [req.body.party_id, req.params.id];
-  
+
   db.query(sql, params, (err, result) => {
     if (err) {
       res.status(400).json({ error: err.message });
